@@ -72,16 +72,16 @@
             <h2>4- Exercice </h2>
             <div class="col-md-10">
                 <ol>
-                    <li>Afficher la profession de l'employé 547 :<code></code></li>
-                    <li>Afficher la date d'embauche d'Amandine :<code></code></li>
-                    <li>Afficher le nombre de commerciaux :<code></code></li>
-                    <li>Afficher le coût des commerciaux sur une année :<code></code></li>
-                    <li>Afficher le salaire moyen par service :<code></code></li>
-                    <li>Afficher le nombre de recrutement sur l'année 2010 :<code></code></li>
-                    <li>Augmenter le salaire pour chaque employé de 100 € :<code></code></li>
-                    <li>Afficher le nombre de service :<code></code></li>
-                    <li>Afficher les informations de l'employé du service commercial gagnant le salaire le plus élevé :<code></code></li>
-                    <li>Afficher l'employé ayant été embauché en dernier <code></code></li>
+                    <li>Afficher la profession de l'employé 547 :<code>SELECT nom, prenom, service FROM employes WHERE id_employes = 547;</code></li>
+                    <li>Afficher la date d'embauche d'Amandine :<code>SELECT nom, prenom, date_embauche FROM employes WHERE prenom = 'Amandine';</code></li>
+                    <li>Afficher le nombre de commerciaux :<code>SELECT COUNT(*) AS 'nbr_commerciaux' FROM employes WHERE service = 'commercial';</code></li>
+                    <li>Afficher le coût des commerciaux sur une année :<code>SELECT SUM( salaire * 12) AS 'salaire_annuel_commerciaux' FROM employes WHERE service = 'commercial';</code></li>
+                    <li>Afficher le salaire moyen par service et trier du plus petit au plus grand :<code>SELECT AVG(salaire) AS 'salaire_moyen_par_service', service FROM employes GROUP BY service ORDER BY salaire_moyen_par_service ASC;</code></li>
+                    <li>Afficher le nombre de recrutement sur l'année 2010 :<code>SELECT COUNT(*) AS 'nbre de recrutements en 2010' FROM employes WHERE date_embauche LIKE '2010%';</code> ou bien <code>SELECT COUNT(*) AS 'nbre de recrutements en 2010' FROM employes WHERE date_embauche BETWEEN '2010-01-01' AND '2010-12-31';</code> ou bien <code>SELECT COUNT(*) AS 'nbre de recrutements en 2010' FROM employes WHERE date_embauche >= '2010-01-01' AND date_embauche <= '2010-12-31';</code></li>
+                    <li>Augmenter le salaire pour chaque employé de 100 € :<code>UPDATE employes SET salaire = salaire + 100;</code></li>
+                    <li>Afficher le nombre de service :<code>SELECT COUNT(DISTINCT service) AS 'nombre de service' FROM employes;</code></li>
+                    <li>Afficher les informations de l'employé du service commercial gagnant le salaire le plus élevé :<code>SELECT nom, prenom, service, salaire FROM employes WHERE service = 'commercial' ORDER BY salaire DESC LIMIT 0,1;</code> ou bien <code></code></li>
+                    <li>Afficher l'employé ayant été embauché en dernier <code>SELECT * FROM employes ORDER BY date_embauche DESC LIMIT 1;</code> ou bien : <code>SELECT * FROM employes WHERE date_embauche =(SELECT MAX(date_embauche) FROM employes);</code></li>
                 </ol>
              </div>
              <!-- fin col  -->
