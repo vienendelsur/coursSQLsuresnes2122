@@ -28,9 +28,24 @@
     </header>
 
     <section class="container mb-4 bg-light">
+        <div class="row justify-content-center">
+            <h2>a/ Modélisation</h2>
+            <div class="col-md-8">
+                <figure>
+                    <img src="img/designer.png" alt="Modélisation">
+                    <figcaption>Modélisation de la BDD bibliotheque</figcaption>
+                </figure>
+            </div>
+            <!-- fin col  -->
+        </div>
+        <!-- fin row -->
+
         <div class="row">
-            <h2>Création de la BDD "bibliotheque"</h2>
+            
+            <h3 class="text-center">Les codes nécessaires pour la création des différentes parties</h3>
+            <p>On écrit la requête suivante sur le terminal : <code>CREATE DATABASE bibliotheque CHARACTER SET 'utf8';</code></p>
             <div class="col-md-6">
+                <h4>b/ Créations de tables</h4>
                 <figure>
                     <img src="img/abonne.png" alt="table abonne">
                     <figcaption>La table abonne</figcaption>
@@ -46,10 +61,75 @@
                     <li><code></code></li>
                 </ul>
             </div>
-            
+            <!-- fin col  -->
+        </div>   
+        <!-- fin row -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <figure>
+                    <img src="img/livre.png" alt="table livre">
+                    <figcaption>La table abonne</figcaption>
+                </figure>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li>Création de la table abonne en SQL : <code CREATE TABLE IF NOT EXISTS livre ( <br>
+                        id_livre INT(3) NOT NULL AUTO_INCREMENT, <br>
+                        auteur VARCHAR(30) NOT NULL, <br>
+                        titre VARCHAR(30) NOT NULL, <br>
+                        PRIMARY KEY (id_livre) <br>
+                        )ENGINE=innoDB ; </code></li>
+                    <li><code>DESCRIBE emprunt; </code></li>
+                </ul>
+            </div>
+            <!-- fin col  -->
         </div>   
         <!-- fin row -->
        
+
+        <div class="row">
+            <h2>2- SELECT sur plusieurs tables</h2>
+            <div class="col-md-3">
+                <ul>
+                    <li><code>SELECT * FROM abonne;</code></li>
+                    <li><code>SELECT * FROM livre;</code></li>
+                    <li><code>SELECT * FROM emprunt;</code></li>
+                </ul>
+                </div>
+                <!-- fin col  -->
+                <!-- ul>li*11{ : }>code -->
+               <div class="col-md-9">
+                    <ul>
+                        <li class="alert alert-success">On cherche les livres qui n'ont pas été rendu : <code>SELECT id_livre FROM emprunt WHERE date_rendu IS NULL; </code> : attention cas particulier la valeur NULL se teste avec le mot clef IS !</li>
+
+                        <li>Quels sont les titres des livres qui n'ont pas été rendus ? : <code>SELECT * FROM livre WHERE id_livre IN (SELECT id_livre FROM emprunt WHERE date_rendu IS NULL)</code> ; nous cherchons des informations dans les tables "livre" et "emprunt", la requête entre parenthèses s'exécute en premier, et nous donne l'id des livres de la table "emprunt", puis nous demandons les titres des livres correspondant aux id des livres de la première requête. </li>
+
+                        <li class="alert alert-success">Attention ! Pour qu'une requête imbriquée sur 3 tables soit possible il faut absolument qu'une information soit commune aux 2 tables : ici l'id_livre !! Le champ id_livre nous sert à "joindre" et faire correspondre les informations</li>
+
+                        <li>Afficher les prénoms des abonnés ayant emprunté un livre le 19/12/2014 : <code>SELECT * FROM abonne WHERE id_abonne IN(SELECT id_abonne FROM emprunt WHERE date_sortie='2014-12-19')</code></li>
+
+                        <li>Afficher les abonnés ayant emprunté un livre d'Alphone Daudet : <code>SELECT prenom FROM abonne WHERE id_abonne IN(SELECT id_abonne FROM emprunt WHERE id_livre IN(SELECT id_livre FROM livre WHERE auteur ='Alphonse Daudet'))</code><br>
+                            La dernière requête s'exécute en 1er et nous sort de la table livre les id du ou des livres de Daudet, puis la requête du milieu nous sort les id des abonnés ayant emprunté le ou les livre de Daudet et enfin la 1ère requête nous donne leur prénom 
+                        </li>
+
+                        <li>Afficher le(s) titres(s) du ou des livre(s) emprunté par Chloé : <code>SELECT titre FROM livre WHERE id_livre IN(SELECT id_livre FROM emprunt WHERE id_abonne =(SELECT id_abonne FROM abonne WHERE prenom='chloé') )</code></li>
+
+                        <li>Afficher le(s) titre(s) de(s) livre(s) que Chloé n'a pas emprunté : <code></code></li>
+
+                        <li> : <code>SELECT titre FROM livre WHERE id_livre NOT IN(SELECT id_livre FROM emprunt WHERE id_abonne =(SELECT id_abonne FROM abonne WHERE prenom='chloé'))</code></li>
+
+                        <li>Afficher le(s) titre(s) des livre(s) que Chloé n'a pas encore rendu  : <code>SELECT titre FROM livre WHERE id_livre IN(SELECT id_livre FROM emprunt WHERE date_rendu IS NULL AND id_abonne =(SELECT id_abonne FROM abonne WHERE prenom='chloé'))</code></li>
+
+                        <li>Combien de livre(s) a emprunté Guillaume : <code>SELECT COUNT(*) AS 'nombre de livre' FROM emprunt WHERE id_abonne =(SELECT id_abonne FROM abonne WHERE prenom='guillaume')</code></li>
+
+                    </ul>
+            </div>
+            <!-- fin col  -->
+        </div>   
+        <!-- fin row -->
+
+        SELECT * FROM `livre` WHERE titre` LIKE '%ot%' 
 
     </section>
     <!-- fin container -->
