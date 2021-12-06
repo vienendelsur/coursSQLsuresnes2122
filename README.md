@@ -46,3 +46,6 @@
 1- Définition
     a/ Récap
 2- Exemples
+    a/ Jointures
+    b/ Jointures externes
+    c/ Jointures externes avec UNION

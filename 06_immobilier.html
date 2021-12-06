@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <title>Cours SQL - Exercice, BDD immobilier</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body class="bg-warning">
+    <!-- ICI on placera une navbar latérale avec le sommaire de la page -->
+    <!-- Ici on mettra un diaporama full with (cf. container-fluid) -->
+
+    <header class="container mb-4 bg-white">
+      <div class="row">
+        <div class="col-8">
+          <h1 class="display-5">Cours SQL - Exercice, BDD immobilier</h1>
+          <p class="lead">Exercice ...</p>
+        </div>
+      </div>
+      <!-- fin row -->
+    </header>
+
+    <section class="container mb-4 bg-white p-2">
+
+      <div class="row">
+        <h2>Modélisation de la BDD immobilier</h2>
+        <p><code>CREATE DATABASE immobilier CHARACTER SET 'utf8';</code></p>
+
+        <div class="col-md-6">
+          <h3>Table agence</h3>
+          <figure>
+            <img src="img/immo_agence.jpg" alt="agence" class="img-fluid" />
+            <figcaption class="text-center text-white bg-primary">
+              Agence
+            </figcaption>
+          </figure>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6 bg-light">
+          <h3>Commande SQL</h3>
+          <ul>
+            <li>
+              Création de la table "agence" : <br>
+              <code
+                >CREATE TABLE IF NOT EXISTS agence ( <br>
+                idAgence int(6) NOT NULL AUTO_INCREMENT, <br>
+                nom varchar(100) NOT NULL, <br>
+                adresse varchar(100) NOT NULL, <br>
+                PRIMARY KEY (idAgence) <br>
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;</code>
+            </li>
+          </ul>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6 bg-light">
+          <h3>Commande SQL</h3>
+          <ul>
+            <li>
+              <br><code
+                >CREATE TABLE IF NOT EXISTS demande (<br>
+                idDemande int(5) NOT NULL AUTO_INCREMENT,<br>
+                idPersonne int(3) NOT NULL,<br>
+                genre varchar(100) NOT NULL,<br>
+                ville varchar(100) NOT NULL,<br>
+                budget int(7) NOT NULL,<br>
+                superficie int(5) NOT NULL,<br>
+                categorie varchar(100) NOT NULL,<br>
+                PRIMARY KEY (idDemande),<br>
+                KEY idPersonne (idPersonne)<br>
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;</code>
+            </li>
+          </ul>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6">
+          <h3>Table demande</h3>
+          <figure>
+            <img src="img/immo_demande.jpg" alt="demande" class="img-fluid" />
+            <figcaption class="text-center text-white bg-primary">
+              Demande
+            </figcaption>
+          </figure>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6">
+          <h3>Table logement</h3>
+          <figure>
+            <img src="img/immo_logement.jpg" alt="logement" class="img-fluid" />
+            <figcaption class="text-center text-white bg-primary">
+              Logement
+            </figcaption>
+          </figure>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6 bg-light">
+          <h3>Commande SQL</h3>
+          <ul>
+            <li>
+              Création de la table "logement" : <br>
+              <code
+                >CREATE TABLE IF NOT EXISTS logement (<br>
+                idLogement int(4) NOT NULL AUTO_INCREMENT,<br>
+                genre varchar(100) NOT NULL,<br>
+                ville varchar(100) NOT NULL,<br>
+                prix int(7) NOT NULL,<br>
+                superficie int(5) NOT NULL,<br>
+                categorie varchar(100) NOT NULL,<br>
+                PRIMARY KEY (idLogement)<br>
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1;</code>
+            </li>
+          </ul>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6 bg-light">
+          <h3>Table logement_agence</h3>
+
+          <h3>Commande SQL</h3>
+          <ul>
+            <li>
+              Création de la table "logement agence" : <br>
+              <code
+                >CREATE TABLE IF NOT EXISTS logement_agence (<br>
+                idLogementAgence int(5) NOT NULL AUTO_INCREMENT,<br>
+                idAgence int(6) NOT NULL,<br>
+                idLogement int(4) NOT NULL,<br>
+                frais int(7) NOT NULL,<br>
+                PRIMARY KEY (idLogementAgence),<br>
+                KEY idAgence (idAgence),<br>
+                KEY idLogement (idLogement)<br>
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1</code>
+            </li>
+          </ul>
+        </div>
+        <!-- fin col -->
+        <div class="col-md-6">
+          <figure>
+            <img src="img/immo_logement_agence.jpg" alt="logement agence" class="img-fluid">
+            <figcaption class="text-center text-white bg-primary"> Logement agence </figcaption>
+          </figure>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6">
+          <figure>
+            <img src="img/immo_logement_personne.jpg" alt="logement personne" class="img-fluid">
+            <figcaption class="text-center text-white bg-primary"> Logement personne </figcaption>
+          </figure>
+        </div>
+        <!-- fin col -->
+        <div class="col-md-6 bg-light">
+          <h3>Table logement_personne</h3>
+
+          <h3>Commande SQL</h3>
+          <ul>
+            <li>
+              Création de la table "logement personne" : <br>
+              <code>
+                CREATE TABLE IF NOT EXISTS logement_personne (<br>
+                idLogementPersonne int(5) NOT NULL AUTO_INCREMENT,<br>
+                idPersonne int(3) NOT NULL,<br>
+                idLogement int(4) NOT NULL,<br>
+                PRIMARY KEY (idLogementPersonne),<br>
+                UNIQUE KEY idLogement (idLogement),<br>
+                KEY idPersonne (idPersonne)<br>
+                ) ENGINE=InnoDB DEFAULT CHARSET=latin1<br>
+              </code>
+            </li>
+          </ul>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6 bg-light">
+            <h3>Table personne</h3>
+            
+            <h3>Commande SQL</h3>
+            <ul>
+                <li>
+                    Création de la table "personne" : <br>
+                    <code>
+                        CREATE TABLE IF NOT EXISTS personne (<br>
+                        idPersonne int(3) NOT NULL AUTO_INCREMENT,<br>
+                        prenom varchar(100) NOT NULL,<br>
+                        PRIMARY KEY (idPersonne)<br>
+                        ) ENGINE=InnoDB DEFAULT CHARSET=latin1<br>
+                    </code>
+                </li>
+            </ul>
+        </div>
+        <!-- fin col -->
+
+        <div class="col-md-6">
+            <figure>
+              <img src="img/immo_personne.jpg" alt="personne" class="img-fluid">
+              <figcaption class="text-center text-white bg-primary"> Logement personne </figcaption>
+            </figure>
+          </div>
+          <!-- fin col -->
+    </div>
+   
+      <!-- fin row -->
+    </section>
+    <!-- fin container -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
