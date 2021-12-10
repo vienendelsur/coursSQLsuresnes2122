@@ -250,6 +250,16 @@
                     <li>Quels sont les logements gérés par l'agence « laforet » : <code>SELECT idLogement FROM logement_agence WHERE idAgence = (SELECT idAgence FROM agence WHERE nom = 'laforet')</code></li>
 
                     <li>Affichez le nombre de propriétaires dans la ville de Paris (Alias : Nombre propriétaire parisien) : <code>SELECT COUNT(DISTINCT(lp.idPersonne)) AS 'nombre de proprios parisiens' FROM logement_personne lp, logement l WHERE lp.idLogement = l.idLogement AND l.ville='paris'</code></li>
+
+                    <li>Requête de jointure : affichez le bien de Robin et la ou les agences qui gère(nt) ce bien : <code>SELECT personne.prenom, logement_personne.idLogement, logement.ville, logement.superficie, logement.genre, agence.nom<br>
+                      FROM personne, logement_personne, logement, agence, logement_agence<br>
+                      WHERE personne.idPersonne = logement_personne.idPersonne<br>
+                      AND logement_personne.idLogement = logement.idLogement<br>
+                      AND logement_personne.idLogement = logement_agence.idLogement<br>
+                      AND agence.idAgence = logement_agence.idAgence<br>
+                      AND logement_personne.idLogement = 5770</code></li>
+
+                      <li><code></code></li>
         </ol>
       </div>
       <!-- fin col -->
